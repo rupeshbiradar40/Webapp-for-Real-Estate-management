@@ -1,0 +1,185 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1>Register</h1>
+    </div>
+  </div>
+  
+  <div class="container">
+    <h2>Register form</h2>
+    <div *ngIf="alertMessage">
+      <app-alert [alertMessage]="alertMessage" [alertClass]="alertClass"></app-alert>
+  
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+
+      <div class="form-group">
+        <label for="username">Email:</label>
+        <input
+          type="email"
+          class="form-control"
+          id="username"
+          placeholder="Enter User Name"
+          formControlName="username"
+        />
+        <div *ngIf="(username.invalid && username.touched) || username.dirty">
+          <small *ngIf="username.errors?.required" class="text-danger">EMail is required</small>
+          <small *ngIf="username.errors?.pattern" class="text-danger">Please provide a valid Email.</small>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Enter password"
+          formControlName="password"
+        />
+        <small><label class="col" [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+          <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
+            registerForm.controls['password'].hasError('minlength') ? 'cancel' :
+            'check_circle' }}</i>
+          Must be at least 8 characters!
+        </label>
+        <label class="col" [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+          <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
+            registerForm.controls['password'].hasError('hasNumber') ? 'cancel' :
+            'check_circle' }}</i>
+          Must contain at least 1 number!
+        </label>
+        <label class="col" [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+          <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
+            registerForm.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+            'check_circle' }}</i>
+          Must contain at least 1 in Capital Case!
+        </label>
+        <label class="col" [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+          <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
+            registerForm.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+            'check_circle' }}</i>
+          Must contain at least 1 Letter in Small Case!
+        </label>
+        <label class="col" [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+          <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
+            registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+            'check_circle' }}</i>
+          Must contain at least 1 Special Character!
+        </label></small>
+      </div>
+
+
+      <div class="form-group">
+        <label for="contact">Contact:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="contact"
+          placeholder="Enter contact"
+          formControlName="contact"
+        />
+
+        <div *ngIf="(contact.invalid && contact.touched) || contact.dirty">
+        <!--  Add if required :->  <small *ngIf="contact.errors?.required" class="text-danger">Contact is required</small>  -->
+          <small *ngIf="contact.errors?.pattern" class="text-danger">Please provide a valid contact no.</small>
+        </div>
+      </div>
+  
+
+      <div class="form-group">
+        <label for="firstname">First Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstname"
+          placeholder="Enter firstname"
+          formControlName="firstname"
+        />
+        <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+            class="alert alert-danger">
+          <div *ngIf="firstname.errors.required">
+            <small>Firstname is required.</small>
+          </div>
+          <div *ngIf="firstname.errors.minlength">
+             <small>Firstname cannot be more than 30 characters long.</small>
+          </div>
+          <div *ngIf="firstname.errors.minlength">
+            <small>Firstname must be at least 2 characters long.</small>
+          </div>
+        </div>
+        <!---->
+
+      </div>
+
+      <div class="form-group">
+        <label for="lastname">Last Name:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastname"
+          placeholder="Enter lastname"
+          formControlName="lastname"
+        />
+        <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)"
+            class="alert alert-danger">
+          <div *ngIf="lastname.errors.required">
+            <small>Lastname is required.</small>
+          </div>
+          <div *ngIf="lastname.errors.minlength">
+            <small>Lastname cannot be more than 30 characters long.</small>
+          </div>
+          <div *ngIf="lastname.errors.minlength">
+            <small>Lastname must be at least 2 characters long.</small>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="city"
+          placeholder="Enter city"
+          formControlName="city"
+        />
+        <div *ngIf="(city.invalid && city.touched) || city.dirty">
+          <small *ngIf="city.errors?.required" class="text-danger">City is required</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="zip">Zip Code:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="zip"
+          placeholder="Enter zip code"
+          formControlName="zip"
+        />
+        <small *ngIf="zip.errors?.required" class="text-danger">Zip is required</small> 
+        <small *ngIf="zip.errors?.pattern" class="text-danger">Please provide a valid zip code.</small>
+        
+      </div>
+
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="state"
+          placeholder="Enter state"
+          formControlName="state"
+        />
+        <div *ngIf="(state.invalid && state.touched) || state.dirty">
+          <small *ngIf="state.errors?.required" class="text-danger">State is required</small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  

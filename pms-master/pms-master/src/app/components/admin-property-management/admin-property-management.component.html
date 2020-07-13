@@ -1,0 +1,103 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Properties</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="m-3" *ngIf="alertMessage">
+    <app-alert
+      [alertMessage]="alertMessage"
+      [alertClass]="alertClass"
+    ></app-alert>
+  </div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search properties by ZIP code"
+        [(ngModel)]="zipCode"
+        name="zipCode"
+      />
+      <div class="input-group-append">
+        <button class="btn btn-success" type="submit">Seacrh</button>
+      </div>
+    </div>
+  </form>
+  <div class="card mb-3" *ngFor="let property of properties">
+    <div class="card-body">
+      <h4>{{ property.name | titlecase }}</h4>
+      <div class="row">
+        <div class="col">
+          <p class="text-secondary">Property Id: {{ property._id }}</p>
+        </div>
+        <div class="col text-right">
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="doUpdatePropertyDetails(property._id)"
+          >
+            Update Property Details
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="doDeleteProperty(property._id)"
+          >
+            Delete Property Permenantly
+          </button>
+        </div>
+      </div>
+      <hr />
+      <p><strong>Description</strong>: {{ property.description }}</p>
+      <div class="row my-3">
+        <div class="col border"><strong>Area</strong>: {{ property.area }}</div>
+        <div class="col border">
+          <strong>Property Type</strong> : {{ property.type }}
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col"><strong>Owner</strong>: {{ property.owner }}</div>
+        <div class="col">
+          <div class="btn-group">
+            <button
+              type="button"
+              class="btn btn-primary"
+              [disabled]="!property.isAvailableForRent"
+            >
+              Rent Now
+              {{
+                property.rentPrice ? "for " + property.rentPrice + "/month" : ""
+              }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              [disabled]="!property.isAvailableForBuy"
+            >
+              Buy Now {{ property.buyPrice ? "for " + property.buyPrice : "" }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="property.photos.length > 0">
+        <strong>Photos</strong>:
+        <div class="row">
+          <div class="col" *ngFor="let photo of property.photos; let i = index">
+            <div class="mx-auto text-center">
+              <img
+                class="img-fluid img-thumbnail"
+                [src]="photo"
+                width="300"
+                [alt]="i"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

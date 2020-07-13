@@ -1,0 +1,19 @@
+{
+	"name": "pms-server",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index.js"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^4.0.1",
+		"express": "^4.17.1",
+		"mongoose": "^5.9.9",
+		"mv": "^2.1.1",
+		"restify": "^8.5.1",
+		"restify-cors-middleware": "^1.1.1"
+	}
+}

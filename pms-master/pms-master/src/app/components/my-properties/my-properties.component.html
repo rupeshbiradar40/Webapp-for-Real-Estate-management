@@ -1,0 +1,62 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>My Properties</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="m-3" *ngIf="alertMessage">
+    <app-alert
+      [alertMessage]="alertMessage"
+      [alertClass]="alertClass"
+    ></app-alert>
+  </div>
+  <div class="card mb-3" *ngFor="let property of properties">
+    <div class="card-body">
+      <h4>{{ property.name | titlecase }}</h4>
+      <div class="row">
+        <div class="col">
+          <p class="text-secondary">Property Id: {{ property._id }}</p>
+        </div>
+        <div class="col text-right">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="doDeleteProperty(property._id)"
+          >
+            Delete Property
+          </button>
+        </div>
+      </div>
+
+      <hr />
+      <p><strong>Description</strong>: {{ property.description }}</p>
+      <div class="row my-3">
+        <div class="col border"><strong>Area</strong>: {{ property.area }}</div>
+        <div class="col border">
+          <strong>Property Type</strong> : {{ property.type }}
+        </div>
+      </div>
+
+      <div class="row my-3">
+        <div class="col"><strong>Owner</strong>: {{ property.owner }}</div>
+      </div>
+
+      <div>
+        <strong>Photos</strong>:
+        <div class="row">
+          <div class="col" *ngFor="let photo of property.photos; let i = index">
+            <div class="mx-auto text-center">
+              <img
+                class="img-fluid img-thumbnail"
+                [src]="'http://localhost:3000/static/' + photo"
+                width="300"
+                [alt]="i"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

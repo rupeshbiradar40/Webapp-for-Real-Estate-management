@@ -1,0 +1,153 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1>Add Property</h1>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Property Registration</h2>
+  <div *ngIf="alertMessage">
+    <app-alert
+      [alertMessage]="alertMessage"
+      [alertClass]="alertClass"
+    ></app-alert>
+  </div>
+  <form [formGroup]="propertyRegForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Property Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Property Name"
+        formControlName="name"
+      />
+    </div>
+    <div class="form-group">
+      <label>Description:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Description"
+        formControlName="description"
+      />
+    </div>
+    <div class="form-group">
+      <label>Area:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter area"
+        formControlName="area"
+      />
+    </div>
+    <div class="form-group">
+      <label>Property Type:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter type"
+        formControlName="type"
+      />
+    </div>
+    <div class="form-group">
+      <label>Are you selling this Property:</label>
+      <div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              formControlName="isAvailableForBuy"
+              value="true"
+            />Yes
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              formControlName="isAvailableForBuy"
+              value="false"
+            />No
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="form-group"
+      *ngIf="propertyRegForm.get('isAvailableForBuy').value == 'true'"
+    >
+      <label>Selling Price:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Selling Price"
+        formControlName="buyPrice"
+      />
+    </div>
+    <div class="form-group">
+      <label>Are you Renting this Property:</label>
+      <div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              formControlName="isAvailableForRent"
+              value="true"
+            />Yes
+          </label>
+        </div>
+        <div class="form-check-inline">
+          <label class="form-check-label">
+            <input
+              type="radio"
+              class="form-check-input"
+              formControlName="isAvailableForRent"
+              value="false"
+            />No
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      class="form-group"
+      *ngIf="propertyRegForm.get('isAvailableForRent').value == 'true'"
+    >
+      <label>Monthly Rent:</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter Monthly Rent"
+        formControlName="rentPrice"
+      />
+    </div>
+    <!-- <div class="form-group">
+      <label>Property Photos(links must be comma separated):</label>
+      <textarea
+        class="form-control"
+        rows="5"
+        formControlName="photos"
+      ></textarea>
+    </div> -->
+    <div class="form-group">
+      <label>Property Photos:</label>
+      <input
+        type="file"
+        multiple
+        class="form-control"
+        (change)="files($event.target.files)"
+      />
+    </div>
+    <button class="btn btn-success" type="button" (click)="upload()">
+      Upload Property Images
+    </button>
+    <div class="row mt-5 mb-3">
+      <div class="col text-right">
+        <button type="submit" class="btn btn-primary btn-block">Submit</button>
+      </div>
+    </div>
+  </form>
+  <div>{{ propertyRegForm.value | json }}</div>
+</div>
